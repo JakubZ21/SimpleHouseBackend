@@ -1,0 +1,12 @@
+pl\javasolutions\controllers\LoginController.class
+pl\javasolutions\controllers\UserPageController.class
+pl\javasolutions\MyDispatcherServlet.class
+pl\javasolutions\validator\ValidatorEnum.class
+pl\javasolutions\controllers\ExceptionController.class
+pl\javasolutions\controllers\HomeController.class
+pl\javasolutions\controllers\RegisterController.class
+pl\javasolutions\pojo\Product.class
+pl\javasolutions\controllers\LogoutController.class
+pl\javasolutions\validator\UserValidator.class
+pl\javasolutions\WebConfig.class
+pl\javasolutions\pojo\User.class
