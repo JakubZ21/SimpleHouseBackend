@@ -8,31 +8,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.javasolutions.pojo.Product;
 
-@Controller
+@Controller//Pozwala na mapowanie
 public class HomeController {
 
-    @RequestMapping(value = "/")
+    @RequestMapping(value = "/") //Maping pliku home.jsp na stronê g³ówn¹
     public String home(Model model) {
-        
-        List<Product> products = getProducts();
-        
-        model.addAttribute("products", products);
-        model.addAttribute("nick", "Jan");
         return "home";
 
     }
     
-    private List<Product> getProducts(){
-        List<Product> products = new ArrayList<>();
-        Product prod = new Product("koszulki", "koszulka1");
-        Product secondProd = new Product("koszulki", "koszulka2");
-        Product thirdProd = new Product("spodnie", "spodnie1");
-        Product forthProd = new Product("spodnie", "spodnie2");
-        products.add(prod);
-        products.add(secondProd);
-        products.add(thirdProd);
-        products.add(forthProd);
-        return products;
-    }
+    
 }
     

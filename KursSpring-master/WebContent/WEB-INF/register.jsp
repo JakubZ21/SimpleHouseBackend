@@ -12,11 +12,11 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=windows-1250">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
-        <title>JSP Page</title>
+        <title>Register</title>
     </head>
     <body>
         <div style="margin: auto; width: 500px; padding-top: 50px">
-            <form:form method="post" modelAttribute="user">
+            <form:form method="post" modelAttribute="user"> <!-- nazwa modelu po do jakiego będa zapisywane wartości-->
                 
                 <div class="form-group">
                     <label>User Name</label>

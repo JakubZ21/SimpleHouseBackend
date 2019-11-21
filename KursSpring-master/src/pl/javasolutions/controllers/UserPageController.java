@@ -20,8 +20,8 @@ import pl.javasolutions.pojo.User;
 public class UserPageController {
     
     @GetMapping(value="/user_page")
-    public String userPage(Model model, @SessionAttribute("loggedUser") User user){
-        model.addAttribute("usr", user);
+    public String userPage(Model model, @SessionAttribute("loggedUser") User user){//SessionAtt przechwytuje atrybut logged user
+        model.addAttribute("usr", user); //nazwa atrybutu usr poniewa¿ mamy ju¿ atrybut o nazwie user
         
         return "user_page";
     }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author QbeePC
  */
 
+@ControllerAdvice // Dzieki temu dziala przechwytywanie wyj¹tków
 public class ExceptionController {
     
     @RequestMapping("/runtimeException")
@@ -23,7 +24,7 @@ public class ExceptionController {
         throw new RuntimeException();
     }
     
-    @ExceptionHandler(Exception.class)
+    @ExceptionHandler(Exception.class) //Dla Jakiegokolwiek wyj¹tku wyrzuca strone handleException.jsp
     public String handleException(Exception e)
     {
      return "handleException";   

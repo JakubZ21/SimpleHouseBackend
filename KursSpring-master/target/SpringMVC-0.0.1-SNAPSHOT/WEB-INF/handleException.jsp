@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=windows-1250">
-        <title>JSP Page</title>
+        <title>Error Page</title>
     </head>
     <body>
         Wystąpił błąd
