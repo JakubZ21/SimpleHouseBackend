@@ -18,6 +18,8 @@
                     <a class="dropdown-item" href="${category}">${category}</a>
                 </c:forEach>
             </div>
+            <a href = "?count=1">1</a>
+            <a href = "?count=2">2</a>
         </div>
         <h1 style="margin: 30px">Kategoria: ${category}</h1>
         <div style="margin: 30px">

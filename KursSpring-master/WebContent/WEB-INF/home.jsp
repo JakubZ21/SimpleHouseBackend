@@ -19,7 +19,7 @@
                     <a href="login">Login</a>
                 </div>
                 <div class="col-sm">
-                    <a href="products">Products</a>
+                    <a href="products/ALL">Products</a>
                 </div>
             </div>
         </div>
