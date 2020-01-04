@@ -4,6 +4,7 @@ import TacoCloud.Pojo.Ingredient;
 import TacoCloud.Pojo.Taco;
 import TacoCloud.interfaces.TacoRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.PreparedStatementCreatorFactory;
@@ -16,6 +17,8 @@ import java.sql.Types;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
+
 @Slf4j
 @Repository
 public class JdbcTacoRepository implements TacoRepository {
@@ -55,5 +58,55 @@ public class JdbcTacoRepository implements TacoRepository {
     {
 
         jdbc.update("insert into Taco_Ingredients (taco, ingredient) values (?,?)",tacoId, ingredient.getId());
+    }
+
+    @Override
+    public <S extends Taco> Iterable<S> saveAll(Iterable<S> iterable) {
+        return null;
+    }
+
+    @Override
+    public Optional<Taco> findById(Long aLong) {
+        return Optional.empty();
+    }
+
+    @Override
+    public boolean existsById(Long aLong) {
+        return false;
+    }
+
+    @Override
+    public Iterable<Taco> findAll() {
+        return null;
+    }
+
+    @Override
+    public Iterable<Taco> findAllById(Iterable<Long> iterable) {
+        return null;
+    }
+
+    @Override
+    public long count() {
+        return 0;
+    }
+
+    @Override
+    public void deleteById(Long aLong) {
+
+    }
+
+    @Override
+    public void delete(Taco taco) {
+
+    }
+
+    @Override
+    public void deleteAll(Iterable<? extends Taco> iterable) {
+
+    }
+
+    @Override
+    public void deleteAll() {
+
     }
 }

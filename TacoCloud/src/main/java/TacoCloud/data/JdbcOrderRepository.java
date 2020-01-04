@@ -5,14 +5,12 @@ import TacoCloud.Pojo.Taco;
 import TacoCloud.interfaces.OrderRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Repository
 public class JdbcOrderRepository implements OrderRepository {
@@ -31,6 +29,11 @@ public class JdbcOrderRepository implements OrderRepository {
             saveTacoToOrder(taco,orderId);
         }
         return order;
+    }
+
+    @Override
+    public List<Order> findByDeliveryZip(String deliveryZip) {
+        return null;
     }
 
     private  long saveOrderDetails(Order order)
@@ -59,6 +62,56 @@ public class JdbcOrderRepository implements OrderRepository {
 
         this.objectMapper = new ObjectMapper();
 
+
+    }
+
+    @Override
+    public <S extends Order> Iterable<S> saveAll(Iterable<S> iterable) {
+        return null;
+    }
+
+    @Override
+    public Optional<Order> findById(Long aLong) {
+        return Optional.empty();
+    }
+
+    @Override
+    public boolean existsById(Long aLong) {
+        return false;
+    }
+
+    @Override
+    public Iterable<Order> findAll() {
+        return null;
+    }
+
+    @Override
+    public Iterable<Order> findAllById(Iterable<Long> iterable) {
+        return null;
+    }
+
+    @Override
+    public long count() {
+        return 0;
+    }
+
+    @Override
+    public void deleteById(Long aLong) {
+
+    }
+
+    @Override
+    public void delete(Order order) {
+
+    }
+
+    @Override
+    public void deleteAll(Iterable<? extends Order> iterable) {
+
+    }
+
+    @Override
+    public void deleteAll() {
 
     }
 }
