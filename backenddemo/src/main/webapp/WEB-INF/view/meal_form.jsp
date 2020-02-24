@@ -7,7 +7,7 @@
 --%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>Adding New Meal</title>
@@ -18,6 +18,7 @@
 
     <!--  need to associate this data with customer id -->
     <table>
+        <form:hidden path="mealId"/>
         <tbody>
         <tr>
             <td><label>Meal:</label></td>

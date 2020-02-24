@@ -9,13 +9,15 @@ import java.util.List;
 
 public interface MealService {
 
-    public List<Meal> getMealList();
+     List<Meal> getMealList();
 
-    public List<Meal> getMealListByCategory(String category);
+     List<Meal> getMealListByCategory(String category);
 
-    public List<Category> getCategories();
+     List<Category> getCategories();
 
-    public void saveMeal(Meal meal);
+     void saveMeal(Meal meal);
 
-    void delete(int theId);
+     void delete(int theId);
+
+     Meal getMeal(int theId);
 }

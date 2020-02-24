@@ -63,4 +63,12 @@ public class MealDAOImpl implements MealDAO{
         Meal meal = session.get(Meal.class, (long)theId);
         session.delete(meal);
     }
+
+    @Override
+    public Meal getMeal(int theId) {
+        Session session = entityManager.unwrap(Session.class);
+
+        Meal dbMeal = session.get(Meal.class, (long)theId);
+        return dbMeal;
+    }
 }

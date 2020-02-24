@@ -25,20 +25,32 @@ public class MealController {
         {
             tempMeal.setImgUrl("default.jpg");
         }
+        tempMeal.setMealId(meal.getMealId());
 
         mealService.saveMeal(tempMeal);
         return "redirect:/";
     }
 
-    @GetMapping("/addNewMeal")
-    public String showAddNewMealForm(Model model)
+    @GetMapping("/mealForm")
+    public String showMealForm(Model model)
     {
         //creating model attribute
         Meal meal = new Meal();
         List<Category> categories = mealService.getCategories();
         model.addAttribute("categories", categories);
 
+        //adding Meal to model attribute so i can work on it
+        model.addAttribute("meal", meal);
+        return "meal_form";
+    }
 
+    @GetMapping("/mealUpdateForm")
+    public String showMealForm(@RequestParam("mealId") int theId, Model model)
+    {
+        //creating model attribute
+        Meal meal = mealService.getMeal(theId);
+        List<Category> categories = mealService.getCategories();
+        model.addAttribute("categories", categories);
 
         //adding Meal to model attribute so i can work on it
         model.addAttribute("meal", meal);

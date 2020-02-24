@@ -39,7 +39,8 @@ public class Meal {
                 "mealId=" + mealId +
                 ", mealName='" + mealName + '\'' +
                 ", mealDesc='" + mealDesc + '\'' +
-                ", mealPrice=" + mealPrice+
+                ", mealPrice=" + mealPrice+'\''+
+                ", category=" + category.getCategory()+'\''+
                 ", imgUrl='" + imgUrl + '\'' +
                 '}';
     }

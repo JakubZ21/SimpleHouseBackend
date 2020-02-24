@@ -49,4 +49,11 @@ public class MealServiceImpl implements MealService {
     public void delete(int theId) {
         mealDAO.delete(theId);
     }
+
+    @Override
+    public Meal getMeal(int theId) {
+        Meal meal = mealDAO.getMeal(theId);
+        logger.info(meal.toString());
+        return meal;
+    }
 }

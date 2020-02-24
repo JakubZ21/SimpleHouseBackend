@@ -16,4 +16,6 @@ public interface MealDAO {
     void saveMeal(Meal meal);
 
     void delete(int theId);
+
+    Meal getMeal(int theId);
 }

@@ -38,7 +38,7 @@ https://templatemo.com/tm-539-simple-house
 						</div>
 						<nav class="col-md-6 col-12 tm-nav">
 							<ul class="tm-nav-ul">
-								<li class="tm-nav-li"><a href="home" class="tm-nav-link active">Home</a></li>
+								<li class="tm-nav-li"><a href="" class="tm-nav-link active">Home</a></li>
 								<li class="tm-nav-li"><a href="about" class="tm-nav-link">About</a></li>
 								<li class="tm-nav-li"><a href="contact" class="tm-nav-link">Contact</a></li>
 								<!--TODO Add login page-->
@@ -76,13 +76,14 @@ https://templatemo.com/tm-539-simple-house
 								<figcaption>
 									<h4 class="tm-gallery-title">${meal.mealName}</h4>
 									<p class="tm-gallery-description">${meal.mealDesc}</p>
-									<p class="tm-gallery-price">$${meal.mealPrice}<a href="meals/deleteMeal?mealId=${meal.mealId}" onclick="if(!(confirm('Are you sure you want to delete that meal?'))) return false" class="btn btn-danger btn-sm">X</a></p>
+									<p class="tm-gallery-price">$${meal.mealPrice}<a href="meals/deleteMeal?mealId=${meal.mealId}" onclick="if(!(confirm('Are you sure you want to delete that meal?'))) return false" class="btn btn-danger btn-sm">X</a>
+										<a href="/meals/mealUpdateForm?mealId=${meal.mealId}" class="btn btn-info btn-sm">Update</a></p>
 
 								</figcaption>
 							</figure>
 						</article>
 					</c:forEach>
-					<a href="<c:url value="meals/addNewMeal"/>">
+					<a href="<c:url value="/meals/mealForm"/>">
 					<article class="col-lg-3 col-md-4 col-sm-6 col-12 tm-gallery-item">
 						<figure>
 
@@ -112,7 +113,7 @@ https://templatemo.com/tm-539-simple-house
 							</figure>
 						</article>
 					</c:forEach>
-					<a href="<c:url value="/meals/addNewMeal"/>">
+					<a href="<c:url value="/meals/mealForm"/>">
 						<article class="col-lg-3 col-md-4 col-sm-6 col-12 tm-gallery-item">
 							<figure>
 
@@ -141,7 +142,7 @@ https://templatemo.com/tm-539-simple-house
 							</figure>
 						</article>
 					</c:forEach>
-					<a href="<c:url value="meals/addNewMeal"/>">
+					<a href="<c:url value="/meals/mealForm"/>">
 						<article class="col-lg-3 col-md-4 col-sm-6 col-12 tm-gallery-item">
 							<figure>
 
