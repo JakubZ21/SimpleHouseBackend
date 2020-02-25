@@ -33,9 +33,14 @@ public class MealDAOImpl implements MealDAO{
     }
 
     @Override
-    public List<Meal> getMealListByCategory(String category) {
+    public List<Meal> getMealListByCategory(long categoryId) {
+        Session session = entityManager.unwrap(Session.class);
 
-      return null;
+        //create query based on category
+        Query<Meal> query = session.createQuery("from Meal where category.id=:categoryId ");
+        query.setParameter("categoryId",categoryId);
+
+        return query.getResultList();
     }
 
     @Override
@@ -45,8 +50,7 @@ public class MealDAOImpl implements MealDAO{
 
         //create query
         Query<Category> query= session.createQuery("from Category", Category.class);
-        List<Category> categories= query.getResultList();
-        return categories;
+        return query.getResultList();
     }
 
     @Override
@@ -68,7 +72,6 @@ public class MealDAOImpl implements MealDAO{
     public Meal getMeal(int theId) {
         Session session = entityManager.unwrap(Session.class);
 
-        Meal dbMeal = session.get(Meal.class, (long)theId);
-        return dbMeal;
+        return session.get(Meal.class, (long)theId);
     }
 }

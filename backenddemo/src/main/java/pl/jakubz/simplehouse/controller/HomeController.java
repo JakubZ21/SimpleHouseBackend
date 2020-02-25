@@ -3,50 +3,41 @@ package pl.jakubz.simplehouse.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import pl.jakubz.simplehouse.entity.Category;
 import pl.jakubz.simplehouse.entity.Meal;
 import pl.jakubz.simplehouse.service.MealService;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 @Controller
 public class HomeController {
 
+    Logger logger = Logger.getLogger(getClass().getName());
     //Injecting the MealService
     @Autowired
     MealService mealService;
 
 
     @GetMapping("/")
-    public String showHome(Model model)
+    public String showHome(Model model, @RequestParam(required = false, name = "categoryId") Integer catId)
     {
-
-        // TODO Get the meals from database
-
+        List<Meal> meals;
         //listing the meals
-        List<Meal> meals = mealService.getMealList();
+        //logger.info(">>>CatID: "+catId);
+        if (catId == null)
+        {
+             meals= mealService.getMealList();
+        }else
+        {
+            meals=mealService.getMealListByCategory(catId);
+        }
         model.addAttribute("meals", meals);
+        List<Category> categories = mealService.getCategories();
+        model.addAttribute("categories",categories);
         return "index";
     }
-
-
-
-    /*@GetMapping("/home")
-    public String showHomeWithCategories(Model model, @RequestParam(name = "category")String category)
-    {
-
-        // TODO Get the meals from database
-        //listing the meals
-        List<Meal> meals = mealService.getMealListByCategory(category);
-
-        model.addAttribute("meals", meals);
-        return "index";
-    }*/
-
-
 
 
     @GetMapping("/about")

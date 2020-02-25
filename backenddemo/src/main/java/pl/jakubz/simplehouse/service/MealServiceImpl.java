@@ -27,7 +27,7 @@ public class MealServiceImpl implements MealService {
 
     @Override
     @Transactional
-    public List<Meal> getMealListByCategory(String category) {
+    public List<Meal> getMealListByCategory(long category) {
         return mealDAO.getMealListByCategory(category);
     }
 
@@ -52,8 +52,7 @@ public class MealServiceImpl implements MealService {
 
     @Override
     public Meal getMeal(int theId) {
-        Meal meal = mealDAO.getMeal(theId);
-        logger.info(meal.toString());
-        return meal;
+        //logger.info(meal.toString());
+        return mealDAO.getMeal(theId);
     }
 }

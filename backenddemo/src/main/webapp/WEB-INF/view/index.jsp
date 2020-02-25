@@ -9,7 +9,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Simple House Template</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400" rel="stylesheet" />
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 	<link href="${pageContext.request.contextPath}/resources/css/templatemo-style.css" rel="stylesheet" type="text/css"/>
 
 </head>
@@ -58,17 +57,30 @@ https://templatemo.com/tm-539-simple-house
 			<div class="tm-paging-links">
 				<nav>
 					<ul>
-						<li class="tm-paging-item"><a href="#" class="tm-paging-link active">Pizza</a></li>
-						<li class="tm-paging-item"><a href="#" class="tm-paging-link">Salad</a></li>
-						<li class="tm-paging-item"><a href="#" class="tm-paging-link">Noodle</a></li>
+							<li class="tm-paging-item"><a href="${pageContext.request.contextPath}/" class="
+									<c:choose>
+									    <c:when test="${param['categoryId']==null}">tm-paging-link active</c:when>
+										<c:otherwise>tm-paging-link</c:otherwise>
+									</c:choose>">All</a>
+							</li>
+						<c:forEach var="category" items="${categories}">
+							<li class="tm-paging-item">
+								<a href="?categoryId=${category.id}"
+								   class="<c:choose>
+									    <c:when test="${category.id == param['categoryId']}">tm-paging-link active</c:when>
+										<c:otherwise>tm-paging-link</c:otherwise>
+									</c:choose>"
+								>${category.category}
+								</a>
+							</li>
+						</c:forEach>
 					</ul>
 				</nav>
 			</div>
-			<!-- TODO Make this with hibernate DB-->
 			<!-- Gallery -->
 			<div class="row tm-gallery">
 				<!-- gallery page 1 -->
-				<div id="tm-gallery-page-pizza" class="tm-gallery-page">
+				<div class="tm-gallery-page">
 					<c:forEach var="meal" items="${meals}">
 						<article class="col-lg-3 col-md-4 col-sm-6 col-12 tm-gallery-item">
 							<figure>
@@ -76,87 +88,30 @@ https://templatemo.com/tm-539-simple-house
 								<figcaption>
 									<h4 class="tm-gallery-title">${meal.mealName}</h4>
 									<p class="tm-gallery-description">${meal.mealDesc}</p>
-									<p class="tm-gallery-price">$${meal.mealPrice}<a href="meals/deleteMeal?mealId=${meal.mealId}" onclick="if(!(confirm('Are you sure you want to delete that meal?'))) return false" class="btn btn-danger btn-sm">X</a>
-										<a href="/meals/mealUpdateForm?mealId=${meal.mealId}" class="btn btn-info btn-sm">Update</a></p>
+									<p class="tm-gallery-price">$${meal.mealPrice}<a href="meals/deleteMeal?mealId=${meal.mealId}" onclick="if(!(confirm('Are you sure you want to delete that meal?'))) return false" class="tm-btn-danger">X</a>
+										<a href="${pageContext.request.contextPath}/meals/mealUpdateForm?mealId=${meal.mealId}" class="tm-btn-default">Update</a></p>
 
 								</figcaption>
 							</figure>
 						</article>
 					</c:forEach>
-					<a href="<c:url value="/meals/mealForm"/>">
-					<article class="col-lg-3 col-md-4 col-sm-6 col-12 tm-gallery-item">
-						<figure>
 
-							<img src="${pageContext.request.contextPath}/resources/img/gallery/addNew.jpg" alt="Image" class="img-fluid tm-gallery-img" />
-							<figcaption>
-								<h4 class="tm-gallery-title">Add new meal</h4>
-								<p class="tm-gallery-description"></p>
-								<p class="tm-gallery-price"></p>
-							</figcaption>
-						</figure>
+					<article class="col-lg-3 col-md-4 col-sm-6 col-12 tm-gallery-item">
+						<a href="<c:url value="/meals/mealForm"/>">
+							<figure>
+
+								<img src="${pageContext.request.contextPath}/resources/img/gallery/addNew.jpg" alt="Image" class="img-fluid tm-gallery-img" />
+								<figcaption>
+									<h4 class="tm-gallery-title">Add new meal</h4>
+									<p class="tm-gallery-description"></p>
+									<p class="tm-gallery-price"></p>
+								</figcaption>
+							</figure>
+						</a>
 					</article>
-					</a>
+
 
 				</div> <!-- gallery page 1 -->
-				
-				<!-- gallery page 2 -->
-				<div id="tm-gallery-page-salad" class="tm-gallery-page hidden">
-					<c:forEach var="meal" items="${meals}">
-						<article class="col-lg-3 col-md-4 col-sm-6 col-12 tm-gallery-item">
-							<figure>
-								<img src="${pageContext.request.contextPath}/resources/img/gallery/${meal.imgUrl}" alt="Image" class="img-fluid tm-gallery-img" />
-								<figcaption>
-									<h4 class="tm-gallery-title">${meal.mealName}</h4>
-									<p class="tm-gallery-description">${meal.mealDesc}</p>
-									<p class="tm-gallery-price">$${meal.mealPrice}</p>
-								</figcaption>
-							</figure>
-						</article>
-					</c:forEach>
-					<a href="<c:url value="/meals/mealForm"/>">
-						<article class="col-lg-3 col-md-4 col-sm-6 col-12 tm-gallery-item">
-							<figure>
-
-								<img src="${pageContext.request.contextPath}/resources/img/gallery/addNew.jpg" alt="Image" class="img-fluid tm-gallery-img" />
-								<figcaption>
-									<h4 class="tm-gallery-title">Add new meal</h4>
-									<p class="tm-gallery-description"></p>
-									<p class="tm-gallery-price"></p>
-								</figcaption>
-							</figure>
-						</article>
-					</a>
-				</div> <!-- gallery page 2 -->
-				
-				<!-- gallery page 3 -->
-				<div id="tm-gallery-page-noodle" class="tm-gallery-page hidden">
-					<c:forEach var="meal" items="${meals}">
-						<article class="col-lg-3 col-md-4 col-sm-6 col-12 tm-gallery-item">
-							<figure>
-								<img src="${pageContext.request.contextPath}/resources/img/gallery/${meal.imgUrl}" alt="Image" class="img-fluid tm-gallery-img" />
-								<figcaption>
-									<h4 class="tm-gallery-title">${meal.mealName}</h4>
-									<p class="tm-gallery-description">${meal.mealDesc}</p>
-									<p class="tm-gallery-price">$${meal.mealPrice}</p>
-								</figcaption>
-							</figure>
-						</article>
-					</c:forEach>
-					<a href="<c:url value="/meals/mealForm"/>">
-						<article class="col-lg-3 col-md-4 col-sm-6 col-12 tm-gallery-item">
-							<figure>
-
-								<img src="${pageContext.request.contextPath}/resources/img/gallery/addNew.jpg" alt="Image" class="img-fluid tm-gallery-img" />
-								<figcaption>
-									<h4 class="tm-gallery-title">Add new meal</h4>
-									<p class="tm-gallery-description"></p>
-									<p class="tm-gallery-price"></p>
-								</figcaption>
-							</figure>
-						</article>
-					</a>
-
-				</div> <!-- gallery page 3 -->
 			</div>
 			<div class="tm-section tm-container-inner">
 				<div class="row">
@@ -184,19 +139,5 @@ https://templatemo.com/tm-539-simple-house
 	</div>
 	<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/parallax.min.js"></script>
-	<script>
-		$(document).ready(function(){
-			// Handle click on paging links
-			$('.tm-paging-link').click(function(e){
-				e.preventDefault();
-
-				var page = $(this).text().toLowerCase();
-				$('.tm-gallery-page').addClass('hidden');
-				$('#tm-gallery-page-' + page).removeClass('hidden');
-				$('.tm-paging-link').removeClass('active');
-				$(this).addClass("active");
-			});
-		});
-	</script>
 </body>
 </html>

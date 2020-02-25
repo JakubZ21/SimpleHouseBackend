@@ -11,7 +11,7 @@ public interface MealService {
 
      List<Meal> getMealList();
 
-     List<Meal> getMealListByCategory(String category);
+     List<Meal> getMealListByCategory(long category);
 
      List<Category> getCategories();
 

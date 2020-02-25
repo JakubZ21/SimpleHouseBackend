@@ -9,7 +9,7 @@ import java.util.List;
 public interface MealDAO {
     List<Meal> getMealList();
 
-    List<Meal> getMealListByCategory(String category);
+    List<Meal> getMealListByCategory(long category);
 
     List<Category> getCategories();
 
