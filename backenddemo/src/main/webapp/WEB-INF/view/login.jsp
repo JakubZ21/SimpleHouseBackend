@@ -32,11 +32,11 @@
             <div class="panel-heading">
                 <div class="panel-title">Sign In</div>
             </div>
-
+            <!--TODO Register user-->
             <div style="padding-top: 30px" class="panel-body">
 
                 <!-- Login Form -->
-                <form action="${pageContext.request.contextPath}/authenticateTheUser"
+                <form action="${pageContext.request.contextPath}/processLogin"
                       method="POST" class="form-horizontal">
 
                     <!-- Place for messages: error, alert etc ... -->
@@ -77,9 +77,10 @@
                     <!-- Password -->
                     <div style="margin-bottom: 25px" class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-
                         <input type="password" name="password" placeholder="password" class="form-control" >
                     </div>
+                    <input type="hidden" name="${_csrf.parameterName}"
+                           value="${_csrf.token}" />
 
                     <!-- Login/Submit Button -->
                     <div style="margin-top: 10px" class="form-group">
@@ -87,8 +88,7 @@
                             <button type="submit" class="btn btn-success">Login</button>
                         </div>
                     </div>
-                    <!-- I'm manually adding tokens-->
-                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+
                 </form>
 
             </div>

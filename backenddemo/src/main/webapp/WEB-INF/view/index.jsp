@@ -1,6 +1,8 @@
 
 <!DOCTYPE html>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 
 <head>
@@ -10,7 +12,6 @@
     <title>Simple House Template</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400" rel="stylesheet" />
 	<link href="${pageContext.request.contextPath}/resources/css/templatemo-style.css" rel="stylesheet" type="text/css"/>
-
 </head>
 <!--
 
@@ -38,9 +39,13 @@ https://templatemo.com/tm-539-simple-house
 						<nav class="col-md-6 col-12 tm-nav">
 							<ul class="tm-nav-ul">
 								<li class="tm-nav-li"><a href="" class="tm-nav-link active">Home</a></li>
-								<li class="tm-nav-li"><a href="about" class="tm-nav-link">About</a></li>
-								<li class="tm-nav-li"><a href="contact" class="tm-nav-link">Contact</a></li>
-								<!--TODO Add login page-->
+								<li class="tm-nav-li"><a href="${pageContext.request.contextPath}/about" class="tm-nav-link">About</a></li>
+								<li class="tm-nav-li"><a href="${pageContext.request.contextPath}/contact" class="tm-nav-link">Contact</a></li>
+								<sec:authorize access="isAuthenticated()">
+								<li class="tm-nav-li"><form:form id="logout_form" method="post" action="${pageContext.request.contextPath}/logout">
+										<a class="tm-nav-link" style="cursor: pointer" onclick="document.getElementById('logout_form').submit()">Logout</a>
+									</form:form></li>
+								</sec:authorize>
 							</ul>
 						</nav>	
 					</div>
@@ -74,6 +79,11 @@ https://templatemo.com/tm-539-simple-house
 								</a>
 							</li>
 						</c:forEach>
+						<sec:authorize access="isAuthenticated()">
+						<li class="tm-paging-item">
+						<a class="tm-paging-link" href="${pageContext.request.contextPath}/meals/categoryForm">Add Category</a>
+						</li>
+						</sec:authorize>
 					</ul>
 				</nav>
 			</div>
@@ -81,6 +91,7 @@ https://templatemo.com/tm-539-simple-house
 			<div class="row tm-gallery">
 				<!-- gallery page 1 -->
 				<div class="tm-gallery-page">
+					<!--TODO Prices showing as 31.0 instead of 31-->
 					<c:forEach var="meal" items="${meals}">
 						<article class="col-lg-3 col-md-4 col-sm-6 col-12 tm-gallery-item">
 							<figure>
@@ -88,27 +99,31 @@ https://templatemo.com/tm-539-simple-house
 								<figcaption>
 									<h4 class="tm-gallery-title">${meal.mealName}</h4>
 									<p class="tm-gallery-description">${meal.mealDesc}</p>
-									<p class="tm-gallery-price">$${meal.mealPrice}<a href="meals/deleteMeal?mealId=${meal.mealId}" onclick="if(!(confirm('Are you sure you want to delete that meal?'))) return false" class="tm-btn-danger">X</a>
-										<a href="${pageContext.request.contextPath}/meals/mealUpdateForm?mealId=${meal.mealId}" class="tm-btn-default">Update</a></p>
+									<p class="tm-gallery-price">$${meal.mealPrice}
+										<!--TODO Change styles and make the buttons nice-->
+										<sec:authorize access="hasAnyRole('MANAGER','ADMIN')">
+										<a href="meals/deleteMeal?mealId=${meal.mealId}" onclick="if(!(confirm('Are you sure you want to delete that meal?'))) return false" class="tm-btn-danger" style="border-radius: 5px">X</a>
+										<a href="${pageContext.request.contextPath}/meals/mealUpdateForm?mealId=${meal.mealId}" class="tm-btn-default" style="border-radius: 5px">Update</a></sec:authorize></p>
 
 								</figcaption>
 							</figure>
 						</article>
 					</c:forEach>
+					<sec:authorize access="hasAnyRole('MANAGER', 'ADMIN')">
+						<article class="col-lg-3 col-md-4 col-sm-6 col-12 tm-gallery-item">
+							<a href="<c:url value="/meals/mealForm"/>" style="text-underline: none; text-decoration: none;">
+								<figure>
 
-					<article class="col-lg-3 col-md-4 col-sm-6 col-12 tm-gallery-item">
-						<a href="<c:url value="/meals/mealForm"/>">
-							<figure>
-
-								<img src="${pageContext.request.contextPath}/resources/img/gallery/addNew.jpg" alt="Image" class="img-fluid tm-gallery-img" />
-								<figcaption>
-									<h4 class="tm-gallery-title">Add new meal</h4>
-									<p class="tm-gallery-description"></p>
-									<p class="tm-gallery-price"></p>
-								</figcaption>
-							</figure>
-						</a>
-					</article>
+									<img src="${pageContext.request.contextPath}/resources/img/gallery/addNew.jpg" alt="Image" class="img-fluid tm-gallery-img" />
+									<figcaption>
+										<h4 class="tm-gallery-title">Add new meal</h4>
+										<p class="tm-gallery-description"></p>
+										<p class="tm-gallery-price"></p>
+									</figcaption>
+								</figure>
+							</a>
+						</article>
+					</sec:authorize>
 
 
 				</div> <!-- gallery page 1 -->

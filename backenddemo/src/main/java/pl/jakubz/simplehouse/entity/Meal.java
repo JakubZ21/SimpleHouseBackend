@@ -32,7 +32,6 @@ public class Meal {
     private Category category;
     @Column(name = "img_url")
     private String imgUrl;
-
     @Override
     public String toString() {
         return "Meal{" +

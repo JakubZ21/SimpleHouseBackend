@@ -55,4 +55,9 @@ public class MealServiceImpl implements MealService {
         //logger.info(meal.toString());
         return mealDAO.getMeal(theId);
     }
+
+    @Override
+    public void saveCategory(Category category) {
+        mealDAO.saveCategory(category);
+    }
 }

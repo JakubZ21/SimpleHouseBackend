@@ -20,4 +20,6 @@ public interface MealService {
      void delete(int theId);
 
      Meal getMeal(int theId);
+
+    void saveCategory(Category category);
 }

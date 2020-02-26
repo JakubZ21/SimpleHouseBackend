@@ -18,4 +18,6 @@ public interface MealDAO {
     void delete(int theId);
 
     Meal getMeal(int theId);
+
+    void saveCategory(Category category);
 }

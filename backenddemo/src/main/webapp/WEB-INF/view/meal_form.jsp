@@ -16,7 +16,9 @@
 <h1>Add New Meal</h1>
 <form:form action="saveMeal" modelAttribute="meal" method="POST">
 
-    <!--  need to associate this data with customer id -->
+    <!--TODO Photo file upload -->
+    <!--TODO Make this page nicer with styles -->
+    <!--TODO Form Validation-->
     <table>
         <form:hidden path="mealId"/>
         <tbody>

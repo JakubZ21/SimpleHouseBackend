@@ -20,14 +20,13 @@ public class MealController {
     @PostMapping("/saveMeal")
     public String saveMeal(@ModelAttribute("meal") Meal meal)
     {
-        Meal tempMeal = meal;
-        if(tempMeal.getImgUrl()=="")
+        if(meal.getImgUrl().equals(""))
         {
-            tempMeal.setImgUrl("default.jpg");
+            meal.setImgUrl("default.jpg");
         }
-        tempMeal.setMealId(meal.getMealId());
+        meal.setMealId(meal.getMealId());
 
-        mealService.saveMeal(tempMeal);
+        mealService.saveMeal(meal);
         return "redirect:/";
     }
 
@@ -63,5 +62,33 @@ public class MealController {
         mealService.delete(theId);
 
         return "redirect:/";
+    }
+
+    //
+    //CATEGORIES RELATED
+    //
+
+    @GetMapping("/categoryForm")
+    public String showCategoryForm(Model model){
+
+        //create blank category
+        Category category = new Category();
+        //add it to model
+        model.addAttribute("category", category);
+
+        //get categories from DB
+        List<Category> categoryList = mealService.getCategories();
+        //add to model
+        model.addAttribute("categories", categoryList);
+
+        return "category_form";
+    }
+
+    @PostMapping("/saveCategory")
+    public String saveCategory(@ModelAttribute("category") Category category)
+    {
+        mealService.saveCategory(category);
+
+        return "redirect:/meals/categoryForm";
     }
 }

@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @Controller
+@RequestMapping
 public class HomeController {
 
     Logger logger = Logger.getLogger(getClass().getName());

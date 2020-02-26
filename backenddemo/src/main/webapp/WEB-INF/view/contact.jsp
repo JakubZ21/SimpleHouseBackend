@@ -1,3 +1,5 @@
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 
@@ -38,6 +40,10 @@ https://templatemo.com/tm-539-simple-house
 								<li class="tm-nav-li"><a href="${pageContext.request.contextPath}/" class="tm-nav-link">Home</a></li>
 								<li class="tm-nav-li"><a href="about" class="tm-nav-link">About</a></li>
 								<li class="tm-nav-li"><a href="contact" class="tm-nav-link active">Contact</a></li>
+								<sec:authorize access="isAuthenticated()">
+								<li class="tm-nav-li"><form:form id="logout_form" method="post" action="${pageContext.request.contextPath}/logout">
+									<a class="tm-nav-link" style="cursor: pointer" onclick="document.getElementById('logout_form').submit()">Logout</a>
+								</form:form></li></sec:authorize>
 							</ul>
 						</nav>	
 					</div>

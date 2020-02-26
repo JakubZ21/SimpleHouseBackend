@@ -28,7 +28,7 @@ public class MealDAOImpl implements MealDAO{
         //execute query
         List<Meal> meals = query.getResultList();
         //return list
-        System.out.println(meals.toString());
+        //System.out.println(meals.toString());
         return meals;
     }
 
@@ -73,5 +73,12 @@ public class MealDAOImpl implements MealDAO{
         Session session = entityManager.unwrap(Session.class);
 
         return session.get(Meal.class, (long)theId);
+    }
+
+    @Override
+    public void saveCategory(Category category) {
+        Session session = entityManager.unwrap(Session.class);
+
+        session.saveOrUpdate(category);
     }
 }
