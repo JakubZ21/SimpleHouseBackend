@@ -3,6 +3,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 
 <head>
@@ -91,7 +92,6 @@ https://templatemo.com/tm-539-simple-house
 			<div class="row tm-gallery">
 				<!-- gallery page 1 -->
 				<div class="tm-gallery-page">
-					<!--TODO Prices showing as 31.0 instead of 31-->
 					<c:forEach var="meal" items="${meals}">
 						<article class="col-lg-3 col-md-4 col-sm-6 col-12 tm-gallery-item">
 							<figure>
@@ -99,11 +99,13 @@ https://templatemo.com/tm-539-simple-house
 								<figcaption>
 									<h4 class="tm-gallery-title">${meal.mealName}</h4>
 									<p class="tm-gallery-description">${meal.mealDesc}</p>
-									<p class="tm-gallery-price">$${meal.mealPrice}
+									<p class="tm-gallery-price">
+										<fmt:setLocale value="en_US" scope="session"/>
+										<fmt:formatNumber value="${meal.mealPrice}" maxFractionDigits="2" type="currency"/>
 										<!--TODO Change styles and make the buttons nice-->
 										<sec:authorize access="hasAnyRole('MANAGER','ADMIN')">
-										<a href="meals/deleteMeal?mealId=${meal.mealId}" onclick="if(!(confirm('Are you sure you want to delete that meal?'))) return false" class="tm-btn-danger" style="border-radius: 5px">X</a>
-										<a href="${pageContext.request.contextPath}/meals/mealUpdateForm?mealId=${meal.mealId}" class="tm-btn-default" style="border-radius: 5px">Update</a></sec:authorize></p>
+										<a href="meals/deleteMeal?mealId=${meal.mealId}" onclick="if(!(confirm('Are you sure you want to delete that meal?'))) return false" class="btn btn-danger" style="border-radius: 5px">X</a>
+										<a href="${pageContext.request.contextPath}/meals/mealUpdateForm?mealId=${meal.mealId}" class="btn btn-info" style="border-radius: 5px">Update</a></sec:authorize></p>
 
 								</figcaption>
 							</figure>

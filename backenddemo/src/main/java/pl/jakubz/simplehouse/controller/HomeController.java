@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 @Controller
 @RequestMapping
 public class HomeController {
+    //TODO Create error handling page
 
     Logger logger = Logger.getLogger(getClass().getName());
     //Injecting the MealService

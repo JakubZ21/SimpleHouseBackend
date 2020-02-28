@@ -46,18 +46,32 @@ public class MealServiceImpl implements MealService {
 
     @Override
     @Transactional
-    public void delete(int theId) {
-        mealDAO.delete(theId);
+    public void deleteMeal(int theId) {
+        mealDAO.deleteMeal(theId);
     }
 
     @Override
+    @Transactional
     public Meal getMeal(int theId) {
         //logger.info(meal.toString());
         return mealDAO.getMeal(theId);
     }
 
     @Override
+    @Transactional
     public void saveCategory(Category category) {
         mealDAO.saveCategory(category);
+    }
+
+    @Override
+    @Transactional
+    public void deleteCategory(int id) {
+        mealDAO.deleteCategory(id);
+    }
+
+    @Override
+    @Transactional
+    public Category getCategory(int id) {
+        return mealDAO.getCategory(id);
     }
 }

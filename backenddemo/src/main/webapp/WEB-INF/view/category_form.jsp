@@ -15,6 +15,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <style>
+    .error{
+        color: red;
+    }
+    </style>
 </head>
 <body>
 <div class="container" style="margin-top: 50px">
@@ -22,13 +27,12 @@
         <div class="col">
         <form:form action="saveCategory" modelAttribute="category" method="POST">
 
-            <!--TODO Form Validation-->
             <table>
                 <form:hidden path="id"/>
                 <tbody>
                 <tr>
                     <td><label>Category Name</label></td>
-                    <td><form:input path="category"/></td>
+                    <td><form:input path="category"/><form:errors path="category" cssClass="error"/></td>
                 </tr>
                 <tr>
                     <td><label></label></td>
@@ -49,8 +53,7 @@
                 </thead>
                 <c:forEach var="categoryListed" items="${categories}">
                         <tr>
-                            <!--TODO Delete and rename buttons-->
-                            <td scope="row">${categoryListed.id}</td><td>${categoryListed.category}</td><td><a class="btn btn-danger">Delete</a> <a class="btn btn-info">Rename</a></td>
+                            <td scope="row">${categoryListed.id}</td><td>${categoryListed.category}</td><td><a class="btn btn-danger" href="${pageContext.request.contextPath}/meals/deleteCategory?id=${categoryListed.id}">Delete</a> <a class="btn btn-info" href="${pageContext.request.contextPath}/meals/renameCategory?id=${categoryListed.id}">Rename</a></td>
                         </tr>
                 </c:forEach>
             </table>

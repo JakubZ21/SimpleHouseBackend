@@ -11,6 +11,11 @@
 <html>
 <head>
     <title>Adding New Meal</title>
+    <style>
+        .error{
+            color: red;
+        }
+    </style>
 </head>
 <body>
 <h1>Add New Meal</h1>
@@ -18,32 +23,31 @@
 
     <!--TODO Photo file upload -->
     <!--TODO Make this page nicer with styles -->
-    <!--TODO Form Validation-->
     <table>
         <form:hidden path="mealId"/>
         <tbody>
         <tr>
             <td><label>Meal:</label></td>
-            <td><form:input path="mealName"/> </td>
+            <td><form:input path="mealName"/><form:errors path="mealName" cssClass="error"/> </td>
         </tr>
         <tr>
             <td><label>Price:</label></td>
-            <td><form:input path="mealPrice"/> </td>
+            <td><form:input path="mealPrice"/><form:errors path="mealPrice" cssClass="error" /> </td>
         </tr>
         <tr>
             <td><label>Category:</label></td>
-            <td><form:select path="category.id">
-                <c:forEach var="item" items="${categories}">
-                <form:option value="${item.id}">${item.category}</form:option>
-                </c:forEach>
-
-            </form:select></td>
-
+            <td>
+                <form:select path="category.id">
+                    <c:forEach var="item" items="${categories}">
+                        <form:option value="${item.id}">${item.category}</form:option>
+                    </c:forEach>
+                </form:select>
+            </td><form:errors path="category" cssClass="error"/>
 
         </tr>
         <tr>
             <td><label>Description:</label></td>
-            <td><form:input path="mealDesc"/> </td>
+            <td><form:input path="mealDesc"/><form:errors path="mealDesc" cssClass="error"/> </td>
         </tr>
         <tr>
             <td><label>Image(250x250):</label></td>

@@ -1,7 +1,6 @@
 package pl.jakubz.simplehouse.dao;
 
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -62,7 +61,7 @@ public class MealDAOImpl implements MealDAO{
     }
 
     @Override
-    public void delete(int theId) {
+    public void deleteMeal(int theId) {
         Session session = entityManager.unwrap(Session.class);
         Meal meal = session.get(Meal.class, (long)theId);
         session.delete(meal);
@@ -80,5 +79,19 @@ public class MealDAOImpl implements MealDAO{
         Session session = entityManager.unwrap(Session.class);
 
         session.saveOrUpdate(category);
+    }
+
+    @Override
+    public void deleteCategory(int id) {
+        Session session = entityManager.unwrap(Session.class);
+        Category category = session.get(Category.class,(long)id);
+        session.delete(category);
+    }
+
+    @Override
+    public Category getCategory(int id) {
+        Session session = entityManager.unwrap(Session.class);
+
+        return session.get(Category.class,(long)id);
     }
 }
