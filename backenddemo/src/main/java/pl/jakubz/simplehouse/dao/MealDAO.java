@@ -13,7 +13,7 @@ public interface MealDAO {
 
     List<Category> getCategories();
 
-    void saveMeal(Meal meal);
+    int saveMeal(Meal meal);
 
     void deleteMeal(int theId);
 

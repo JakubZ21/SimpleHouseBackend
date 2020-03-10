@@ -43,8 +43,12 @@ https://templatemo.com/tm-539-simple-house
 								<li class="tm-nav-li"><a href="${pageContext.request.contextPath}/about" class="tm-nav-link">About</a></li>
 								<li class="tm-nav-li"><a href="${pageContext.request.contextPath}/contact" class="tm-nav-link">Contact</a></li>
 								<sec:authorize access="isAuthenticated()">
-								<li class="tm-nav-li"><form:form id="logout_form" method="post" action="${pageContext.request.contextPath}/logout">
-										<a class="tm-nav-link" style="cursor: pointer" onclick="document.getElementById('logout_form').submit()">Logout</a>
+									<li class="tm-nav-li"><a href="${pageContext.request.contextPath}/seeMessages"
+															 class="tm-nav-link">Messages</a></li>
+									<li class="tm-nav-li"><form:form id="logout_form" method="post"
+																	 action="${pageContext.request.contextPath}/logout">
+										<a class="tm-nav-link" style="cursor: pointer"
+										   onclick="document.getElementById('logout_form').submit()">Logout</a>
 									</form:form></li>
 								</sec:authorize>
 							</ul>
@@ -95,17 +99,28 @@ https://templatemo.com/tm-539-simple-house
 					<c:forEach var="meal" items="${meals}">
 						<article class="col-lg-3 col-md-4 col-sm-6 col-12 tm-gallery-item">
 							<figure>
-								<img src="${pageContext.request.contextPath}/resources/img/gallery/${meal.imgUrl}" alt="Image" class="img-fluid tm-gallery-img" />
+								<img src="data:image/jpg;base64,${meal.encoded64}" alt="Image"
+									 class="img-fluid tm-gallery-img"/>
 								<figcaption>
+									<sec:authorize access="hasAnyRole('MANAGER','ADMIN')">
+										<p>
+											<a href="meals/deleteMeal?mealId=${meal.mealId}"
+											   onclick="if(!(confirm('Are you sure you want to delete that meal?'))) return false"
+											   class="tm-btn-danger"
+											   style="border-radius: 5px; padding: 5px; text-decoration: none">Delete</a>
+											<a href="${pageContext.request.contextPath}/meals/mealUpdateForm?mealId=${meal.mealId}"
+											   class="tm-btn-primary"
+											   style="border-radius: 5px; padding: 5px; text-decoration: none ">Update</a>
+										</p>
+									</sec:authorize>
 									<h4 class="tm-gallery-title">${meal.mealName}</h4>
 									<p class="tm-gallery-description">${meal.mealDesc}</p>
 									<p class="tm-gallery-price">
 										<fmt:setLocale value="en_US" scope="session"/>
-										<fmt:formatNumber value="${meal.mealPrice}" maxFractionDigits="2" type="currency"/>
-										<!--TODO Change styles and make the buttons nice-->
-										<sec:authorize access="hasAnyRole('MANAGER','ADMIN')">
-										<a href="meals/deleteMeal?mealId=${meal.mealId}" onclick="if(!(confirm('Are you sure you want to delete that meal?'))) return false" class="btn btn-danger" style="border-radius: 5px">X</a>
-										<a href="${pageContext.request.contextPath}/meals/mealUpdateForm?mealId=${meal.mealId}" class="btn btn-info" style="border-radius: 5px">Update</a></sec:authorize></p>
+										<fmt:formatNumber value="${meal.mealPrice}" maxFractionDigits="2"
+														  type="currency"/>
+									</p>
+
 
 								</figcaption>
 							</figure>
@@ -138,9 +153,12 @@ https://templatemo.com/tm-539-simple-house
 						</figure>
 					</div>
 					<div class="col-md-6">
-						<div class="tm-description-box"> 
+						<div class="tm-description-box">
 							<h4 class="tm-gallery-title">Maecenas nulla neque</h4>
-							<p class="tm-mb-45">Redistributing this template as a downloadable ZIP file on any template collection site is strictly prohibited. You will need to <a rel="nofollow" href="https://templatemo.com/contact">talk to us</a> for additional permissions about our templates. Thank you.</p>
+							<p class="tm-mb-45">Redistributing this template as a downloadable ZIP file on any template
+								collection site is strictly prohibited. You will need to <a rel="nofollow"
+																							href="https://templatemo.com/contact">talk
+									to us</a> for additional permissions about our templates. Thank you.</p>
 							<a href="about" class="tm-btn tm-btn-default tm-right">Read More</a>
 						</div>
 					</div>
@@ -149,9 +167,9 @@ https://templatemo.com/tm-539-simple-house
 		</main>
 
 		<footer class="tm-footer text-center">
-			<p>Copyright &copy; 2020 Simple House 
-            
-            | Design: <a rel="nofollow" href="https://templatemo.com">TemplateMo</a></p>
+			<p>Copyright &copy; 2020 Simple House
+
+				| Design: <a rel="nofollow" href="https://templatemo.com">TemplateMo</a> | Backend: Jakub Zytkowski</p>
 		</footer>
 	</div>
 	<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>

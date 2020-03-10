@@ -1,5 +1,8 @@
+
+
 package pl.jakubz.simplehouse.config;
 
+import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
@@ -8,39 +11,34 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
-import javax.sql.DataSource;
-
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
-    //reference to the Security config data
     @Autowired
     @Qualifier("securityDataSource")
     private DataSource securityDataSource;
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-            auth.jdbcAuthentication().dataSource(securityDataSource);
-
+    public SecurityConfig() {
     }
 
-    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.jdbcAuthentication().dataSource(this.securityDataSource);
+    }
+
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/meals/delete**").hasRole("ADMIN")
-                .antMatchers("/meals/*").hasRole("MANAGER")
-                .antMatchers("/*").permitAll()
-                //.antMatchers("/meals/*").hasAnyRole("MANAGER", "ADMIN")
-                //.antMatchers("/meals/save*").hasAnyRole("MANAGER", "ADMIN")
-                .and()
-                .formLogin()
-                .loginPage("/loginForm")
+                        .antMatchers(new String[]{"/meals/delete**"})
+                .hasRole("ADMIN").antMatchers(new String[]{"/seeMessages"})
+                .hasAnyRole(new String[]{"ADMIN", "MANAGER"})
+                .antMatchers(new String[]{"/meals/*"}).hasRole("MANAGER")
+                .antMatchers(new String[]{"/*"})
+                .permitAll().and()
+                .formLogin().loginPage("/loginForm")
                 .loginProcessingUrl("/processLogin")
-                .permitAll()
-                .and()
-                .logout().permitAll().logoutUrl("/logout").logoutSuccessUrl("/")
-                .and()
-                .exceptionHandling().accessDeniedPage("/denied");
+                .permitAll().and().logout().permitAll()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/").and()
+                .exceptionHandling()
+                .accessDeniedPage("/denied");
     }
 }
