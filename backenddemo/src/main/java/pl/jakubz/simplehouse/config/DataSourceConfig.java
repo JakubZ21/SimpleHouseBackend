@@ -1,31 +1,44 @@
+
 package pl.jakubz.simplehouse.config;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.core.env.Environment;
 
-import javax.sql.DataSource;
 
 @Configuration
-@EnableJpaRepositories
 public class DataSourceConfig {
+
+    @Autowired
+    Environment env;
+
+    public DataSourceConfig() {
+    }
 
     @Bean
     @Primary
-    @ConfigurationProperties(prefix = "app.datasource")
-    public DataSource appDataSource()
-    {
-        return DataSourceBuilder.create().build();
+    public DataSource appDataSource() {
+        DataSourceBuilder dataSource = DataSourceBuilder.create();
+        //dataSource.driverClassName(env.getProperty(""));
+        dataSource.password(env.getProperty("app.datasource.password"));
+        dataSource.username(env.getProperty("app.datasource.username"));
+        dataSource.url(env.getProperty("app.datasource.jdbc-url"));
+        return dataSource.build();
     }
 
-
     @Bean
-    @ConfigurationProperties(prefix = "security.datasource")
-    public DataSource securityDataSource(){
-        return DataSourceBuilder.create().build();
+    public DataSource securityDataSource() {
+        DataSourceBuilder dataSource = DataSourceBuilder.create();
+        //dataSource.driverClassName(env.getProperty(""));
+        dataSource.password(env.getProperty("security.datasource.password"));
+        dataSource.username(env.getProperty("security.datasource.username"));
+        dataSource.url(env.getProperty("security.datasource.jdbc-url"));
+        return dataSource.build();
     }
 
 }
