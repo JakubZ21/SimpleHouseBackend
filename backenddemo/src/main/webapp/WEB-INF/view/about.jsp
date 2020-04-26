@@ -41,9 +41,14 @@ https://templatemo.com/tm-539-simple-house
 								<li class="tm-nav-li"><a href="about" class="tm-nav-link active">About</a></li>
 								<li class="tm-nav-li"><a href="contact" class="tm-nav-link">Contact</a></li>
 								<sec:authorize access="isAuthenticated()">
-								<li class="tm-nav-li"><form:form id="logout_form" method="post" action="${pageContext.request.contextPath}/logout">
-									<a class="tm-nav-link" style="cursor: pointer" onclick="document.getElementById('logout_form').submit()">Logout</a>
-								</form:form></li></sec:authorize>
+									<li class="tm-nav-li"><a href="${pageContext.request.contextPath}/seeMessages"
+															 class="tm-nav-link">Messages</a></li>
+									<li class="tm-nav-li"><form:form id="logout_form" method="post"
+																	 action="${pageContext.request.contextPath}/logout">
+										<a class="tm-nav-link" style="cursor: pointer"
+										   onclick="document.getElementById('logout_form').submit()">Logout</a>
+									</form:form></li>
+								</sec:authorize>
 							</ul>
 						</nav>	
 					</div>
@@ -164,22 +169,28 @@ https://templatemo.com/tm-539-simple-house
 				<div class="row">
 					<div class="col-12">
 						<div class="tm-history-inner">
-							<img src="${pageContext.request.contextPath}/resources/img/about-06.jpg" alt="Image" class="img-fluid tm-history-img" />
-							<div class="tm-history-text"> 
+							<img src="${pageContext.request.contextPath}/resources/img/about-06.jpg" alt="Image"
+								 class="img-fluid tm-history-img"/>
+							<div class="tm-history-text">
 								<h4 class="tm-history-title">History of our restaurant</h4>
-								<p class="tm-mb-p">Sed ligula risus, interdum aliquet imperdiet sit amet, auctor sit amet justo. Maecenas posuere lorem id augue interdum vehicula. Praesent sed leo eget libero ultricies congue.</p>
-								<p>Redistributing this template as a downloadable ZIP file on any template collection site is strictly prohibited. You will need to <a href="https://templatemo.com/contact">contact TemplateMo</a> for additional permissions about our templates. Thank you.</p>
+								<p class="tm-mb-p">Sed ligula risus, interdum aliquet imperdiet sit amet, auctor sit
+									amet justo. Maecenas posuere lorem id augue interdum vehicula. Praesent sed leo eget
+									libero ultricies congue.</p>
+								<p>Redistributing this template as a downloadable ZIP file on any template collection
+									site is strictly prohibited. You will need to <a
+											href="https://templatemo.com/contact">contact TemplateMo</a> for additional
+									permissions about our templates. Thank you.</p>
 							</div>
-						</div>	
+						</div>
 					</div>
 				</div>
 			</div>
 		</main>
 
 		<footer class="tm-footer text-center">
-			<p>Copyright &copy; 2020 Simple House 
-            
-            | Design: <a rel="nofollow" href="https://templatemo.com">TemplateMo</a></p>
+			<p>Copyright &copy; 2020 Simple House
+
+				| Design: <a rel="nofollow" href="https://templatemo.com">TemplateMo</a>| Backend: Jakub Zytkowski</p>
 		</footer>
 	</div>
 	<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>

@@ -1,77 +1,112 @@
 package pl.jakubz.simplehouse.service;
 
+import java.util.Iterator;
+import java.util.List;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pl.jakubz.simplehouse.dao.MealDAO;
 import pl.jakubz.simplehouse.entity.Category;
 import pl.jakubz.simplehouse.entity.Meal;
-
-import javax.transaction.Transactional;
-import java.util.List;
-import java.util.logging.Logger;
+import pl.jakubz.simplehouse.exception.CategoryNotFoundException;
+import pl.jakubz.simplehouse.exception.MealNotFoundException;
 
 @Service
 public class MealServiceImpl implements MealService {
-
-    Logger logger = Logger.getLogger(getClass().getName());
+    Logger logger = Logger.getLogger(this.getClass().getName());
     @Autowired
     MealDAO mealDAO;
 
+    public MealServiceImpl() {
+    }
 
-
-    @Override
     @Transactional
     public List<Meal> getMealList() {
-        return mealDAO.getMealList();
+        List<Meal> meals = this.mealDAO.getMealList();
+        Iterator iterator = meals.iterator();
+
+        while(iterator.hasNext()) {
+            Meal meal = (Meal)iterator.next();
+            meal.setEncoded64(meal.getImg());
+        }
+
+        return meals;
     }
 
-    @Override
     @Transactional
     public List<Meal> getMealListByCategory(long category) {
-        return mealDAO.getMealListByCategory(category);
+        List<Meal> meals = this.mealDAO.getMealListByCategory(category);
+        Iterator iterator = meals.iterator();
+
+        while(iterator.hasNext()) {
+            Meal meal = (Meal)iterator.next();
+            meal.setEncoded64(meal.getImg());
+        }
+
+        return meals;
     }
 
-    @Override
     @Transactional
     public List<Category> getCategories() {
-        return mealDAO.getCategories();
-
+        return this.mealDAO.getCategories();
     }
 
-    @Override
     @Transactional
-    public void saveMeal(Meal meal) {
-        mealDAO.saveMeal(meal);
+    public int saveMeal(Meal meal) {
+        return this.mealDAO.saveMeal(meal);
     }
 
-    @Override
     @Transactional
     public void deleteMeal(int theId) {
-        mealDAO.deleteMeal(theId);
+        try {
+            this.mealDAO.deleteMeal(theId);
+        } catch (Exception e) {
+            throw new MealNotFoundException("Student id not found: " + theId);
+        }
     }
 
-    @Override
     @Transactional
     public Meal getMeal(int theId) {
-        //logger.info(meal.toString());
-        return mealDAO.getMeal(theId);
+        Meal meal;
+        try {
+            meal = this.mealDAO.getMeal(theId);
+            if (meal == null) {
+                throw new MealNotFoundException("Student id not found: " + theId);
+            }
+        } catch (Exception e) {
+            throw new MealNotFoundException("Student id not found: " + theId);
+        }
+
+        meal.setEncoded64(meal.getImg());
+        return meal;
     }
 
-    @Override
     @Transactional
     public void saveCategory(Category category) {
-        mealDAO.saveCategory(category);
+        this.mealDAO.saveCategory(category);
     }
 
-    @Override
     @Transactional
     public void deleteCategory(int id) {
-        mealDAO.deleteCategory(id);
+        try {
+            this.mealDAO.deleteCategory(id);
+        } catch (Exception e) {
+            throw new CategoryNotFoundException("Category id not found: " + id);
+        }
     }
 
-    @Override
     @Transactional
     public Category getCategory(int id) {
-        return mealDAO.getCategory(id);
+        try {
+            Category category = this.mealDAO.getCategory(id);
+            if (category == null) {
+                throw new CategoryNotFoundException("Category id not found: " + id);
+            } else {
+                return category;
+            }
+        } catch (Exception e) {
+            throw new CategoryNotFoundException("Category id not found: " + id);
+        }
     }
 }

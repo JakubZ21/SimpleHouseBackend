@@ -1,16 +1,25 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 
 <head>
-	<meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Simple House - Contact Page</title>
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet" />
-    <link href="${pageContext.request.contextPath}/resources/css/all.min.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/resources/css/templatemo-style.css" rel="stylesheet" />
+	<meta charset="UTF-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+	<title>Simple House - Contact Page</title>
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet"/>
+	<link href="${pageContext.request.contextPath}/resources/css/all.min.css" rel="stylesheet"/>
+	<link href="${pageContext.request.contextPath}/resources/css/templatemo-style.css" rel="stylesheet"/>
+	<style>.error {
+		color: red;
+		font-weight: bold
+	}</style>
+
+	<c:if test="${param.sent==1}">
+		<script>alert("Message was sent")</script>
+	</c:if>
 </head>
 <!--
 
@@ -19,13 +28,13 @@ Simple House
 https://templatemo.com/tm-539-simple-house
 
 -->
-<body> 
+<body>
 
-	<div class="container">
+<div class="container">
 	<!-- Top box -->
-		<!-- Logo & Site Name -->
-		<div class="placeholder">
-			<div class="parallax-window" data-parallax="scroll" data-image-src="${pageContext.request.contextPath}/resources/img/simple-house-01.jpg">
+	<!-- Logo & Site Name -->
+	<div class="placeholder">
+		<div class="parallax-window" data-parallax="scroll" data-image-src="${pageContext.request.contextPath}/resources/img/simple-house-01.jpg">
 				<div class="tm-header">
 					<div class="row tm-header-inner">
 						<div class="col-md-6 col-12">
@@ -41,54 +50,66 @@ https://templatemo.com/tm-539-simple-house
 								<li class="tm-nav-li"><a href="about" class="tm-nav-link">About</a></li>
 								<li class="tm-nav-li"><a href="contact" class="tm-nav-link active">Contact</a></li>
 								<sec:authorize access="isAuthenticated()">
-								<li class="tm-nav-li"><form:form id="logout_form" method="post" action="${pageContext.request.contextPath}/logout">
-									<a class="tm-nav-link" style="cursor: pointer" onclick="document.getElementById('logout_form').submit()">Logout</a>
-								</form:form></li></sec:authorize>
+									<li class="tm-nav-li"><a href="${pageContext.request.contextPath}/seeMessages"
+															 class="tm-nav-link">Messages</a></li>
+									<li class="tm-nav-li"><form:form id="logout_form" method="post"
+																	 action="${pageContext.request.contextPath}/logout">
+										<a class="tm-nav-link" style="cursor: pointer"
+										   onclick="document.getElementById('logout_form').submit()">Logout</a>
+									</form:form></li>
+								</sec:authorize>
 							</ul>
-						</nav>	
+						</nav>
 					</div>
 				</div>
-			</div>
 		</div>
+	</div>
 
-		<main>
-			<header class="row tm-welcome-section">
-				<h2 class="col-12 text-center tm-section-title">Contact Page</h2>
-				<p class="col-12 text-center">You may use <a rel="nofollow" href="https://www.ltcclock.com/downloads/simple-contact-form/contact" target="_blank">Simple Contact Form</a> to send email to your inbox. You can modify and use this template for your website. Header image has a parallax effect. Total 3 HTML pages included in this template.</p>
-			</header>
+	<main>
+		<header class="row tm-welcome-section">
+			<h2 class="col-12 text-center tm-section-title">Contact Page</h2>
+			<p class="col-12 text-center">You may use <a rel="nofollow"
+														 href="https://www.ltcclock.com/downloads/simple-contact-form/contact"
+														 target="_blank">Simple Contact Form</a> to send email to your
+				inbox. You can modify and use this template for your website. Header image has a parallax effect. Total
+				3 HTML pages included in this template.</p>
+		</header>
 
-			<div class="tm-container-inner-2 tm-contact-section">
-				<div class="row">
-					<div class="col-md-6">
-						<form action="" method="POST" class="tm-contact-form">
-					        <div class="form-group">
-					          <input type="text" name="name" class="form-control" placeholder="Name" required="" />
-					        </div>
-					        
-					        <div class="form-group">
-					          <input type="email" name="email" class="form-control" placeholder="Email" required="" />
-					        </div>
-				
-					        <div class="form-group">
-					          <textarea rows="5" name="message" class="form-control" placeholder="Message" required=""></textarea>
-					        </div>
-					
-					        <div class="form-group tm-d-flex">
-					          <button type="submit" class="tm-btn tm-btn-success tm-btn-right">
-					            Send
-					          </button>
-					        </div>
-						</form>
-					</div>
-					<div class="col-md-6">
-						<div class="tm-address-box">
-							<h4 class="tm-info-title tm-text-success">Our Address</h4>
-							<address>
-								180 Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus 10550
-							</address>
-							<a href="tel:080-090-0110" class="tm-contact-link">
-								<i class="fas fa-phone tm-contact-icon"></i>080-090-0110
-							</a>
+		<div class="tm-container-inner-2 tm-contact-section">
+			<div class="row">
+				<div class="col-md-6">
+					<form:form action="/sendMessage" modelAttribute="messageToDb" method="POST" class="tm-contact-form">
+						<div class="form-group">
+							<form:errors path="name" cssClass="error"/>
+							<form:input path="name" type="text" name="name" class="form-control" placeholder="Name(40)"
+										required=""/>
+						</div>
+						<div class="form-group">
+							<form:errors path="email" cssClass="error"/>
+							<form:input path="email" name="email" class="form-control" placeholder="Email" required=""/>
+						</div>
+						<div class="form-group">
+							<form:errors path="messageText" cssClass="error"/>
+							<form:textarea rows="5" path="messageText" class="form-control" placeholder="Message(255)"
+										   required=""/>
+						</div>
+						<div class="form-group tm-d-flex">
+							<button type="submit" class="tm-btn tm-btn-success tm-btn-right">
+								Send
+							</button>
+						</div>
+					</form:form>
+				</div>
+				<div class="col-md-6">
+					<div class="tm-address-box">
+						<h4 class="tm-info-title tm-text-success">Our Address</h4>
+						<address>
+							180 Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus
+							10550
+						</address>
+						<a href="tel:080-090-0110" class="tm-contact-link">
+							<i class="fas fa-phone tm-contact-icon"></i>080-090-0110
+						</a>
 							<a href="mailto:info@company.co" class="tm-contact-link">
 								<i class="fas fa-envelope tm-contact-icon"></i>info@company.co
 							</a>
@@ -133,39 +154,45 @@ https://templatemo.com/tm-539-simple-house
 							<div class="panel">
 							  <p>Mauris euismod odio at commodo rhoncus. Maecenas nec interdum purus, sed auctor est. Sed eleifend urna nec diam consectetur, a aliquet turpis facilisis. Integer est sapien, sagittis vel massa vel, interdum euismod erat. Aenean sollicitudin nisi neque, efficitur posuere urna rutrum porta.</p>
 							</div>
-							
+
 							<button class="accordion">3. Can I redistribute this template as a ZIP file?</button>
 							<div class="panel">
-							  <p>Redistributing this template as a downloadable ZIP file on any template collection site is strictly prohibited. You will need to <a href="https://templatemo.com/contact">contact TemplateMo</a> for additional permissions about our templates. Thank you.</p>
+								<p>Redistributing this template as a downloadable ZIP file on any template collection
+									site is strictly prohibited. You will need to <a
+											href="https://templatemo.com/contact">contact TemplateMo</a> for additional
+									permissions about our templates. Thank you.</p>
 							</div>
-							
-							<button class="accordion">4. Ut ac erat sit amet neque efficitur faucibus et in lectus?</button>
+
+							<button class="accordion">4. Ut ac erat sit amet neque efficitur faucibus et in lectus?
+							</button>
 							<div class="panel">
-								<p>Vivamus viverra pretium ultricies. Praesent feugiat, sapien vitae blandit efficitur, sem nulla venenatis nunc, vel maximus ligula sem a sem. Pellentesque ligula ex, facilisis ac libero a, blandit ullamcorper enim.</p>
+								<p>Vivamus viverra pretium ultricies. Praesent feugiat, sapien vitae blandit efficitur,
+									sem nulla venenatis nunc, vel maximus ligula sem a sem. Pellentesque ligula ex,
+									facilisis ac libero a, blandit ullamcorper enim.</p>
 							</div>
-						</div>	
+						</div>
 					</div>
 				</div>
 			</div>
-		</main>
+	</main>
 
-		<footer class="tm-footer text-center">
-			<p>Copyright &copy; 2020 Simple House 
-            
-            | Design: <a rel="nofollow" href="https://templatemo.com">TemplateMo</a></p>
-		</footer>
-	</div>
-	<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/parallax.min.js"></script>
-	<script>
-		$(document).ready(function(){
-			var acc = document.getElementsByClassName("accordion");
-			var i;
-			
-			for (i = 0; i < acc.length; i++) {
-			  acc[i].addEventListener("click", function() {
-			    this.classList.toggle("active");
-			    var panel = this.nextElementSibling;
+	<footer class="tm-footer text-center">
+		<p>Copyright &copy; 2020 Simple House
+
+			| Design: <a rel="nofollow" href="https://templatemo.com">TemplateMo</a>| Backend: Jakub Zytkowski</p>
+	</footer>
+</div>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/parallax.min.js"></script>
+<script>
+	$(document).ready(function () {
+		var acc = document.getElementsByClassName("accordion");
+		var i;
+
+		for (i = 0; i < acc.length; i++) {
+			acc[i].addEventListener("click", function () {
+				this.classList.toggle("active");
+				var panel = this.nextElementSibling;
 			    if (panel.style.maxHeight) {
 			      panel.style.maxHeight = null;
 			    } else {
