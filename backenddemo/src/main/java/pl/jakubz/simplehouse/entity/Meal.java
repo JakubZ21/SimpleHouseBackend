@@ -146,3 +146,4 @@ public class Meal {
         this.encoded64 = Base64.encodeBase64String(bytesArray);
     }
 }
+

@@ -1,5 +1,4 @@
 
-
 package pl.jakubz.simplehouse.config;
 
 import javax.sql.DataSource;
