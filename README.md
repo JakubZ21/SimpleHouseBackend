@@ -4,7 +4,7 @@ Author: Jakub Żytkowski
 
 All the java code that is there i wrote myself.
 
-Login site is hidden under /loginForm GET request. 
+Login site is hidden under /login GET request. 
 
 When you log in you get access to buttons/sites that let you add, delete or modify meals, categories or customer messages.
 All of it is secured with Spring Secure.
